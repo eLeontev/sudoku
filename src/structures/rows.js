@@ -9,7 +9,7 @@ let getSubOffset = (iteration) => (
 )
 
 let LINE_ARRAY = createArray(LINES_AMOUNT)
-let SUB_ARRAY = createArray(SUB_FIELD_SIZE)
+export let SUB_ARRAY = createArray(SUB_FIELD_SIZE)
 
 export let cols = LINE_ARRAY.reduce((cols, offset) => ({
     ...cols,

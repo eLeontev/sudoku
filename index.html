@@ -5,6 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Sudoku</title>
+    <style>
+        #sudoku {
+            position: relative;
+        }
+
+        .shadow_grid {
+            position: absolute;
+            margin-left: 50%;
+            transform: translateX(-50%);
+            z-index: -1;
+        }
+
+        .shadow_row {
+            display: flex;
+        }
+
+        .shadow_cell {
+            width: 90px;
+            height: 90px;
+            border: 2px solid #222;
+            box-sizing: border-box;
+            float: left;
+        }
+
+        .grid {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .row {
+            display: flex;
+            justify-content: center;
+        }
+
+        .cell {
+            width: 30px;
+            height: 30px;
+            border: 1px solid rgba(100, 100 , 100, 0.2);
+            box-sizing: border-box;
+            line-height: 30px;
+        }
+    </style>
 </head>
 <body>
     <div id="sudoku"></div>
