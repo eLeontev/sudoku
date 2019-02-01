@@ -20,10 +20,12 @@ let createCell = (index, value = null, status = null) => ({
     row: getCellData(index, cols),
     col: getCellData(index, rows),
     sub: getSub(index),
+    isEditable: Boolean(Math.random() > 0.5),
+    isEdit: false,
 }) 
 
-export let grid = new Array(CELLS_AMOUNT).fill('').map((empty, index) => createCell(index))
+export let initialGrid = new Array(CELLS_AMOUNT).fill('').map((empty, index) => createCell(index))
     .reduce((grid, cell) => ({
         ...grid,
         [cell.index]: cell,
-    }), {} )
+    }), {})

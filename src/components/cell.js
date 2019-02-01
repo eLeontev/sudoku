@@ -1,5 +1,5 @@
 import React from 'react'
 
-export let Cell = ({ cell }) => ( 
-    <span onClick={() => console.log(cell)} className="cell">{cell.index}</span>
+export let Cell = ({ value }) => ( 
+    <span className="cell cell_initial">{value}</span>
 )
