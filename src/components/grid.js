@@ -5,7 +5,9 @@ import { EditableCell } from './editable-cell.component'
 
 import { rows } from '../structures/rows'
 import { initialGrid } from '../structures/grid'
+import { generateGameFiledValues, matchValuesToGrid } from '../services/game.service'
 
+let getInitialGrid = () => matchValuesToGrid(generateGameFiledValues(), initialGrid)
 
 let renderCell = (cell, startEditCell, changeCellValue) => cell.isEditable 
     ? (
@@ -27,7 +29,7 @@ let endEditAllCells = (grid) => Object.entries(grid).reduce((grid, [index, cell]
 }), {})
 
 export let Grid = () => {
-    let [grid, changeGrid] = useState(initialGrid)
+    let [grid, changeGrid] = useState(getInitialGrid)
 
     let startEditCell = (index) => () => changeGrid({
         ...endEditAllCells(grid),
