@@ -61,13 +61,44 @@ export let generateGameFiledValues = () => {
     }, baseGrid)
 }
 
-export let matchValuesToGrid = (gridValues, grid) => gridValues.reduce((grid, values, row) => {
+let DEFAUULT_COMPEXITY = 2
+let getEditableCells = (compexity) => {
+    let amountRemovedValues = getRepeatsAmount(0, DEFAUULT_COMPEXITY) + compexity
+    
+    return new Array(amountRemovedValues).fill('').map((empty, index) => index).reduce(({ removedValues, lostValues }) => {
+        let ranodmIndex = Math.floor(Math.random() * lostValues.length)
+        let removedValue = lostValues[ranodmIndex]
+        return {
+            removedValues: [...removedValues, removedValue],
+            lostValues: lostValues.filter((value) => value !== removedValue)
+        }
+    }, {
+        removedValues: [],
+        lostValues: LINE_ARRAY,
+    }).removedValues
+}
+
+let setCellValue = (cell, editableCells, value) => {
+    let isEditable = editableCells.indexOf(cell.col) !== -1
+
+    return {
+        ...cell,
+        value: isEditable ? null: value,
+        isEditable, 
+    }
+}
+
+export let fromFiledBasedToComplexity = (gridValues, grid) => gridValues.reduce((grid, values, row) => {
+    let editableCells = getEditableCells(DEFAUULT_COMPEXITY)
+    
     values.forEach((value, index) => {
         grid[row * LINES_AMOUNT + index] = {
             ...grid[row * LINES_AMOUNT + index],
             value,
         }
+
+        grid[row * LINES_AMOUNT + index] = setCellValue(grid[row * LINES_AMOUNT + index], editableCells, value)
     })
 
-    return {...grid}
+    return { ...grid }
 }, grid)

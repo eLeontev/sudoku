@@ -5,12 +5,12 @@ import { EditableCell } from './editable-cell.component'
 
 import { rows } from '../structures/rows'
 import { initialGrid } from '../structures/grid'
-import { generateGameFiledValues, matchValuesToGrid } from '../services/game.service'
+import { generateGameFiledValues, fromFiledBasedToComplexity } from '../services/game.service'
 
 import { gridReducer } from '../reducers/grid.reducer'
 import { CHANGE_CELL_VALUE_ACTION, START_EDIT_CELL_ACTION } from '../constants/grid.constants'
 
-let getInitialGrid = () => matchValuesToGrid(generateGameFiledValues(), initialGrid)
+let getInitialGrid = () => fromFiledBasedToComplexity(generateGameFiledValues(), initialGrid)
 
 let renderCell = (cell, startEditCell, changeCellValue) => cell.isEditable 
     ? (
