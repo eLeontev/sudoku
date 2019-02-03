@@ -1,5 +1,5 @@
 import { CELLS_AMOUNT } from '../constants/grid.constants'
-import { rows, cols, subs } from './rows'
+import { rows, cols, subs } from './rows.structure'
 
 let IS_NOT_DEFINED = -1
 

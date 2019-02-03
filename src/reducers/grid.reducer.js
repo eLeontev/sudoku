@@ -1,7 +1,10 @@
 import {
     START_EDIT_CELL_ACTION,
-    CHANGE_CELL_VALUE_ACTION
+    CHANGE_CELL_VALUE_ACTION,
+    START_NEW_GAME_ACTION,
 } from '../constants/grid.constants'
+
+import { getInitialGrid } from '../services/game.service'
 
 let endEditAllCells = (grid) => Object.entries(grid).reduce((grid, [index, cell]) => ({
     ...grid,
@@ -11,7 +14,7 @@ let endEditAllCells = (grid) => Object.entries(grid).reduce((grid, [index, cell]
     }
 }), {})
 
-export let gridReducer = (grid, {type, payload}) => {
+export let gridReducer = (grid, { type, payload = {} }) => {
     let { index, value } = payload
     
     switch (type) {
@@ -34,6 +37,10 @@ export let gridReducer = (grid, {type, payload}) => {
                     value,
                 }
             }
+        }
+
+        case START_NEW_GAME_ACTION: {
+            return getInitialGrid()
         }
         default:
             return state

@@ -1,15 +1,17 @@
-import React, { useReducer } from 'react'
+import React, { useState } from 'react'
 
 import { components } from './components/index' 
+import { getInitialGrid } from './services/game.service'
 
 let { Actions, Grid } = components
 
 export let Sudoku = () => {
+    let [action, setAction] = useState({})
+
     return (
         <div>
-            <Grid />
-            <Actions />
+            <Grid initialGrid={getInitialGrid()}  action={action} />
+            <Actions setAction={setAction} />
         </div>
     )
 }
-

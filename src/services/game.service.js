@@ -1,5 +1,6 @@
 import { SUB_FIELD_SIZE, LINES_AMOUNT, GRID_CELL_VALUE_OFFSET } from '../constants/grid.constants'
-import { LINE_ARRAY } from '../structures/rows'
+import { LINE_ARRAY } from '../structures/rows.structure'
+import { initialGrid } from '../structures/grid.structure'
 
 let size = [0, 1, 2]
 let subs = [[0,1,2], [3,4,5], [6,7,8]]
@@ -45,7 +46,7 @@ let getRandomParts = (arrayOfValues) => {
     return [from, leftValues[ranodmIndex]]
 }
 
-export let generateGameFiledValues = () => {
+let generateGameFiledValues = () => {
     let baseGrid = LINE_ARRAY.map(index => LINE_ARRAY.map(value => Math.floor(
         (index * SUB_FIELD_SIZE + index / SUB_FIELD_SIZE + value) % LINES_AMOUNT + GRID_CELL_VALUE_OFFSET))
     )
@@ -88,7 +89,7 @@ let setCellValue = (cell, editableCells, value) => {
     }
 }
 
-export let fromFiledBasedToComplexity = (gridValues, grid) => gridValues.reduce((grid, values, row) => {
+let fromFiledBasedToComplexity = (gridValues, grid) => gridValues.reduce((grid, values, row) => {
     let editableCells = getEditableCells(DEFAUULT_COMPEXITY)
     
     values.forEach((value, index) => {
@@ -102,3 +103,5 @@ export let fromFiledBasedToComplexity = (gridValues, grid) => gridValues.reduce(
 
     return { ...grid }
 }, grid)
+
+export let getInitialGrid = () => fromFiledBasedToComplexity(generateGameFiledValues(), initialGrid)

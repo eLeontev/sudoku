@@ -1,16 +1,14 @@
-import React, { useReducer } from 'react'
+import React, { useReducer, useMemo } from 'react'
 
-import { Cell } from './cell'
+import { Cell } from './not-editable-cell.component'
 import { EditableCell } from './editable-cell.component'
 
-import { rows } from '../structures/rows'
-import { initialGrid } from '../structures/grid'
-import { generateGameFiledValues, fromFiledBasedToComplexity } from '../services/game.service'
+import { rows } from '../structures/rows.structure'
 
 import { gridReducer } from '../reducers/grid.reducer'
-import { CHANGE_CELL_VALUE_ACTION, START_EDIT_CELL_ACTION } from '../constants/grid.constants'
+import { performGridActions } from '../actions/grid.actions'
 
-let getInitialGrid = () => fromFiledBasedToComplexity(generateGameFiledValues(), initialGrid)
+import { CHANGE_CELL_VALUE_ACTION, START_EDIT_CELL_ACTION } from '../constants/grid.constants'
 
 let renderCell = (cell, startEditCell, changeCellValue) => cell.isEditable 
     ? (
@@ -22,8 +20,9 @@ let renderCell = (cell, startEditCell, changeCellValue) => cell.isEditable
     />)
     : <Cell key={cell.index} value={cell.value} />
 
-export let Grid = () => {
-    let [grid, dispatch] = useReducer(gridReducer, getInitialGrid())
+export let Grid = ({ action, initialGrid }) => {
+    let [grid, dispatch] = useReducer(gridReducer, initialGrid)
+    useMemo(() => performGridActions(action, dispatch), [action])
 
     let startEditCell = (index) => () => dispatch({
         type: START_EDIT_CELL_ACTION,
